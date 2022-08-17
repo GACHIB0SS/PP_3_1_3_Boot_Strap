@@ -49,13 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public User readUser(Long id) {
         return userRepository.readUser(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<User> readAllUsers() {
         return userRepository.readAllUsers();
     }
