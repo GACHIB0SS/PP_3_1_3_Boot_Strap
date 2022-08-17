@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -33,13 +34,13 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User readUser(Long id) {
         return entityManager.find(User.class, id);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<User> readAllUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
