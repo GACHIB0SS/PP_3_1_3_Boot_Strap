@@ -17,10 +17,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetailsServiceImpl(UserService userService) {
         this.userService = userService;
     }
-    @Transactional
+
+    @Transactional(readOnly = true)
     public User findUserByUsername(String username) {
         return userService.findByUsername(username);
     }
+
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
