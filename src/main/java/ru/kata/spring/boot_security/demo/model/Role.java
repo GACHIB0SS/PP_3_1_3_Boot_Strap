@@ -10,31 +10,22 @@ import java.util.Set;
 public class Role implements GrantedAuthority {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "roleName", unique = true)
     private String roleName;
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
-    public Role() {
+    public Role () {
 
     }
 
-    public Role(Long id, String roleName) {
-        this.id = id;
+    public Role (String roleName) {
         this.roleName = roleName;
-    }
-
-    public Role(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Role(Long id, String roleName, Set<User> users) {
-        this.id = id;
-        this.roleName = roleName;
-        this.users = users;
     }
 
     public Long getId() {
@@ -45,34 +36,20 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
     public String getRoleName() {
         return roleName;
+    }
+
+    public String getCutedRoleName() {
+        return roleName.replaceAll("ROLE_", "");
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
     public String getAuthority() {
         return getRoleName();
     }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", roleName='" + roleName + '\'' +
-                ", users=" + users +
-                '}';
-    }
-
 }
